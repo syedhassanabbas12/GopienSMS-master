@@ -19,7 +19,7 @@
     <string name="the_selected_file_is_empty">The selected file is empty. Please select file of user contacts.</string>
     <string name="add_another_text_file">Add another .txt file</string>
     <string name="sms_content_cannot_be_empty">Sms content cannot be empty!</string>
-    <string name="please_first_select_contact_list">Please first select .txt contact list file.</string>
+    <string name="please_first_select_contact">Please first select .txt contact list file OR select Contact(s).</string>
     <string name="note_colon">Note :</string>
     <string name="avoid_blocking_your_sim_content">In order to send bulk sms to your customers you need to add delay
         after sending one sms. For example, in Pakistan your sim will be blocked if you send 200 sms with in 15 minutes.

@@ -35,6 +35,7 @@ class SendBulkSmsActivity : BaseActivity() {
     private companion object {
         private const val READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE = 1000
         private const val ASK_SMS_PERMISSION_REQUEST_CODE = 1001
+        private const val REQUEST_READ_CONTACTS = 79
     }
 
     @Inject
@@ -66,6 +67,24 @@ class SendBulkSmsActivity : BaseActivity() {
                 askPermission(
                     arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
                     READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE
+                )
+        }
+
+        /**
+         * Initializing the Contact list recycler view and setting default adapter.
+         */
+
+        /**
+         *
+         */
+
+        sendBulkSmsChooseContactButton.setOnClickListener {
+            if (isHasPermission(Manifest.permission.READ_CONTACTS))
+                showFileSelectorDialog()
+            else
+                askPermission(
+                    arrayOf(Manifest.permission.READ_CONTACTS),
+                    REQUEST_READ_CONTACTS
                 )
         }
 
@@ -109,7 +128,7 @@ class SendBulkSmsActivity : BaseActivity() {
             if (smsContactAdapter.isContactListEmpty()) {
                 uiHelper.showSnackBar(
                     sendBulkSmsActivityRootView,
-                    getResourceString(R.string.please_first_select_contact_list), Snackbar.LENGTH_LONG
+                    getResourceString(R.string.please_first_select_contact), Snackbar.LENGTH_LONG
                 )
                 return@setOnClickListener
             }
@@ -133,6 +152,17 @@ class SendBulkSmsActivity : BaseActivity() {
         }
     }
 
+
+
+
+
+
+
+
+
+
+
+
     private fun sendBulkSms() {
         viewModel.sendBulkSms(
             smsContactAdapter.contactItems().toTypedArray(),
@@ -149,11 +179,21 @@ class SendBulkSmsActivity : BaseActivity() {
         }
     }
 
+
+
+
+
+
     private fun showFileSelectorDialog() {
         uiHelper.showSelectContactFileDialog(this) { selectedFile ->
             viewModel.handleSelectedFile(selectedFile)
         }
     }
+
+
+
+
+
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
@@ -174,8 +214,22 @@ class SendBulkSmsActivity : BaseActivity() {
                         READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE
                     )
                 }
+        } else if (requestCode == REQUEST_READ_CONTACTS) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                showFileSelectorDialog()
+            else
+                showBottomSheetDialog(R.string.storage_permission_denied_content) {
+                    askPermission(
+                        arrayOf(Manifest.permission.READ_CONTACTS),
+                        REQUEST_READ_CONTACTS
+                    )
+                }
         }
     }
+
+
+
+
 
     private fun showBottomSheetDialog(@StringRes titleResource: Int, closure: () -> Unit) {
         uiHelper.showBottomSheetDialog(
@@ -187,6 +241,11 @@ class SendBulkSmsActivity : BaseActivity() {
             closure.invoke()
         }
     }
+
+
+
+
+
 
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
