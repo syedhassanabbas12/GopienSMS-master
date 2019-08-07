@@ -1,19 +1,19 @@
 package spartons.com.prosmssenderapp.activities.contactss.ui
 
-import android.content.ContentResolver
+import android.app.Activity
 import android.content.Context
-import android.database.Cursor
+import android.content.Intent
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import com.google.android.material.snackbar.Snackbar
 import spartons.com.prosmssenderapp.R
+import spartons.com.prosmssenderapp.activities.sendBulkSms.ui.SendBulkSmsActivity
 import spartons.com.prosmssenderapp.fragments.BaseFragment
 import java.util.*
+import kotlin.collections.ArrayList
 
 class OneFragment : BaseFragment() {
 
@@ -27,10 +27,15 @@ class OneFragment : BaseFragment() {
     private lateinit var mySearchView: SearchView
 
     interface OnDataPass {
-        fun OnDataPass(yesPhones: ArrayList<ContactHolder>, arr: BooleanArray, Sel: ArrayList<ContactHolder>)
-        fun OnDataSelectedPass(Sel: ArrayList<ContactHolder>)
+        fun onDataPass(yesPhones: ArrayList<ContactHolder>, arr: BooleanArray, Sel: ArrayList<ContactHolder>)
+        fun onDataSelectedPass(Sel: ArrayList<ContactHolder>)
     }
     private var dataPasser: OnDataPass? = null
+
+    override fun onAttach(activity: Activity) {
+        super.onAttach(activity)
+        dataPasser = activity as OnDataPass
+    }
 
 
     companion object {
@@ -44,15 +49,30 @@ class OneFragment : BaseFragment() {
         val fab: View = mRootView.findViewById(R.id.contactsFloatingActionButton)
         fab.setOnClickListener { view ->
             if(SelectedList.isEmpty()) {
-                Snackbar.make(view, "Here's a Snackbar", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Must select contacts", Snackbar.LENGTH_LONG)
                     .setAction("Action", null)
                     .show()
             } else {
-                dataPasser?.OnDataSelectedPass(SelectedList)
+                dataPasser?.onDataSelectedPass(SelectedList)
+                val i = Intent(context, SendBulkSmsActivity::class.java)
+                val v:ArrayList<String> = ArrayList(SelectedList.size)
+                for(i in SelectedList.indices){
+                    v.add(SelectedList[i].getNumber().toString())
+                }
+//                Toast.makeText(activity, "Checking V $v", Toast.LENGTH_SHORT).show()
+//                i.putStringArrayListExtra("javidan", v)
+                i.flags = Intent.FLAG_ACTIVITY_NEW_TASK;
+                i.putExtra("contacts", v)
+                startActivity(i)
                 activity?.finish()
             }
         }
         addContacts()
+
+        SelectedList = ArrayList()
+        arr = BooleanArray(Phones.size)
+        for (i in arr.indices) arr[i] = false
+        dataPasser?.onDataPass(Phones, arr, SelectedList)
 
         var cc: Context? = context
         mySearchView = mRootView.findViewById(R.id.SearchViewmy)
@@ -70,11 +90,7 @@ class OneFragment : BaseFragment() {
             textViewTotalSel.text = "" + 0
         }
 
-        SelectedList = ArrayList()
 
-        arr = BooleanArray(Phones.size)
-        for (i in arr.indices) arr[i] = false
-        dataPasser?.OnDataPass(Phones, arr, SelectedList)
 
 
         myAdapter = ContactAdapter(Phones, cc!!)
@@ -97,50 +113,7 @@ class OneFragment : BaseFragment() {
         })
     }
 
-   /* override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_one, container, false)
 
-        addContacts()
-
-
-        contact = view.findViewById<View>(R.id.myListView) as ListView
-//        mySearchView = view.findViewById(R.id.SearchViewmy)
-//        textViewTotalSel = view.findViewById(R.id.TextViewTotal)
-//        contact = view.findViewById(R.id.myListView)
-//        btn = view.findViewById(R.id.ImageButtonCancel)
-//
-//        btn.setOnClickListener {
-//            for (i in Phones.indices) {
-//                Phones[i].setCheckbox(false)
-//                arr[i] = false
-//            }
-//            myAdapter.notifyDataSetChanged()
-//            SelectedList.clear()
-//            textViewTotalSel.text = "" + 0
-//        }
-//
-//        btn.setOnLongClickListener {
-//            Toast.makeText(activity, "Long CLick", Toast.LENGTH_SHORT).show()
-//            contact.deferNotifyDataSetChanged()
-//            false
-//        }
-
-        SelectedList = ArrayList()
-
-        arr = BooleanArray(Phones.size)
-        for (i in arr.indices) arr[i] = false
-        dataPasser?.OnDataPass(Phones, arr, SelectedList)
-
-        myAdapter = ContactAdapter(Phones, context)
-        val myComparator =
-            Comparator<ContactHolder> { obj1, obj2 -> obj1.getName().toString().compareTo(obj2.getName().toString()) }
-        Collections.sort(Phones, myComparator)
-        contact.adapter = myAdapter
-        contact.choiceMode = ListView.CHOICE_MODE_MULTIPLE
-//        selectContacts(view)
-
-        return view
-    }*/
 
     private fun addContacts() {
         Phones = ArrayList()
@@ -160,7 +133,7 @@ class OneFragment : BaseFragment() {
         }
 
 //        Toast.makeText(activity, "Long CL1ick "+Phones[0].getName().toString(), Toast.LENGTH_SHORT).show()
-        dataPasser?.OnDataPass(Phones, arr, SelectedList)
+//        dataPasser?.onDataPass(Phones, arr, SelectedList)
     }
 
     fun selectContacts(view: View?) {
@@ -205,51 +178,11 @@ class OneFragment : BaseFragment() {
                     SelectedList.add(ContactHolder(Phones[x].getId(), Phones[x].getName().toString(), Phones[x].getNumber().toString()))
                 }
             }
-            dataPasser?.OnDataSelectedPass(SelectedList)
+            dataPasser?.onDataSelectedPass(SelectedList)
             //Toast.makeText(getActivity(), ""+SelectedList.size(), Toast.LENGTH_SHORT).show();
             textViewTotalSel.text = count.toString() + ""
-            dataPasser?.OnDataPass(Phones, arr, SelectedList)
+            dataPasser?.onDataPass(Phones, arr, SelectedList)
         }
     }
-
-
-    /*private fun getContacts(): StringBuilder {
-        Phones = ArrayList()
-        val builder = StringBuilder()
-        val resolver: ContentResolver = context!!.contentResolver
-        val cursor : Cursor = resolver.query(ContactsContract.Contacts.CONTENT_URI, null, null, null,
-            null)
-
-        if (cursor.count > 0) {
-            while (cursor.moveToNext()) {
-                val id = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts._ID))
-                val name = cursor.getString(cursor.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME))
-                val phoneNumber = (cursor.getString(
-                    cursor.getColumnIndex(ContactsContract.Contacts.HAS_PHONE_NUMBER))).toInt()
-
-                if (phoneNumber > 0) {
-                    val cursorPhone = context!!.contentResolver.query(
-                        ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                        null, ContactsContract.CommonDataKinds.Phone.CONTACT_ID + "=?", arrayOf(id), null)
-
-                    if(cursorPhone.count > 0) {
-                        while (cursorPhone.moveToNext()) {
-                            val phoneNumValue = cursorPhone.getString(
-                                cursorPhone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-                            builder.append("Contact: ").append(name).append(", Phone Number: ").append(
-                                phoneNumValue).append("\n\n")
-                            Phones.add(ContactHolder(id.toLong(), name, phoneNumber))
-//                            Log.e("Name ===>", Phones[0].getName().toString())
-                        }
-                    }
-                    cursorPhone.close()
-                }
-            }
-        } else {
-            //   toast("No contacts available!")
-        }
-        cursor.close()
-        return builder
-    }*/
 }
 

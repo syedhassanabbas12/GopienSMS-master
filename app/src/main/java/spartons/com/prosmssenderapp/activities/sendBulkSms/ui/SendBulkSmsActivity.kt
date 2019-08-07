@@ -4,8 +4,10 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.View.VISIBLE
+import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -16,6 +18,8 @@ import kotlinx.android.synthetic.main.activity_send_bulk_sms.*
 import spartons.com.prosmssenderapp.R
 import spartons.com.prosmssenderapp.activities.BaseActivity
 import spartons.com.prosmssenderapp.activities.contactss.BaseContactActivity
+import spartons.com.prosmssenderapp.activities.contactss.ui.ContactHolder
+import spartons.com.prosmssenderapp.activities.contactss.ui.OneFragment
 import spartons.com.prosmssenderapp.activities.sendBulkSms.adapter.SendBulkSmsContactAdapter
 import spartons.com.prosmssenderapp.activities.sendBulkSms.viewModel.SendBulkSmsViewModel
 import spartons.com.prosmssenderapp.helper.UiHelper
@@ -23,6 +27,7 @@ import spartons.com.prosmssenderapp.util.askPermission
 import spartons.com.prosmssenderapp.util.doOnTextChanged
 import spartons.com.prosmssenderapp.util.getResourceString
 import spartons.com.prosmssenderapp.util.isHasPermission
+import java.util.ArrayList
 import javax.inject.Inject
 
 
@@ -32,7 +37,25 @@ import javax.inject.Inject
  * 6/25/19}
  */
 
-class SendBulkSmsActivity : BaseActivity() {
+class SendBulkSmsActivity : BaseActivity(), OneFragment.OnDataPass {
+
+
+    override fun onDataPass(yesPhones: ArrayList<ContactHolder>, arr: BooleanArray, Sel: ArrayList<ContactHolder>) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun onDataSelectedPass(Sel: ArrayList<ContactHolder>) {
+        selected = Sel
+        var newContacts: ArrayList<String> = ArrayList(selected.size)
+        for (i in selected.indices){
+            newContacts.add(selected[i].getNumber().toString())
+        }
+        if(selected.size>0) {
+            Toast.makeText(applicationContext, "Buurrraaah!! " + newContacts[0], Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private lateinit var selected: ArrayList<ContactHolder>
 
     private companion object {
         private const val READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE = 1000
@@ -58,6 +81,10 @@ class SendBulkSmsActivity : BaseActivity() {
         setSupportActionBar(sendBulkSmsToolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        selected = ArrayList()
+
+        val veer: ArrayList<String>? = intent.getStringArrayListExtra("contacts")
+        intent.removeExtra("contacts")
         /**
          *
          */
@@ -98,6 +125,13 @@ class SendBulkSmsActivity : BaseActivity() {
         sendBulkSmsAllPhoneNumberRecyclerView.setHasFixedSize(true)
         sendBulkSmsAllPhoneNumberRecyclerView.adapter = smsContactAdapter
 
+        if(!veer.isNullOrEmpty()){
+//            if(!smsContactAdapter.isContactListEmpty()) {
+//                veer.addAll(smsContactAdapter.contactItems())
+//            }
+//
+            smsContactAdapter.feedItems(veer)
+        }
         /**
          * handle events came from SendBulkSmsViewModel class.
          */
@@ -110,6 +144,10 @@ class SendBulkSmsActivity : BaseActivity() {
                 uiModel.contactList.consume()?.let { contactList ->
                     sendBulkSmsChooseFileButton.text = getResourceString(R.string.add_another_text_file)
                     smsContactAdapter.feedItems(contactList)
+//                    Toast.makeText(applicationContext, " $contactList", Toast.LENGTH_SHORT).show()
+                    if(!veer.isNullOrEmpty()){
+                        smsContactAdapter.feedItems(veer)
+                    }
                 }
             if (uiModel.showMessage != null && !uiModel.showMessage.consumed)
                 uiModel.showMessage.consume()?.let { messageResource ->

@@ -17,9 +17,23 @@ import spartons.com.prosmssenderapp.activities.sendBulkSms.adapter.SendBulkSmsCo
 import java.util.*
 
 
-class BaseContactActivity : AppCompatActivity() {
+class BaseContactActivity : AppCompatActivity(), OneFragment.OnDataPass {
 
-    private var selected: ArrayList<ContactHolder>? = null
+//    private var selected: ArrayList<ContactHolder>? = null
+    private lateinit var Phones: ArrayList<ContactHolder>
+    private lateinit var Selected: ArrayList<ContactHolder>
+    private lateinit var FinalList_CheckItem: BooleanArray
+
+    override fun onDataPass(yesPhones: ArrayList<ContactHolder>, arr: BooleanArray, Sel: ArrayList<ContactHolder>) {
+        Phones = yesPhones
+        Selected = Sel
+        FinalList_CheckItem = BooleanArray(Phones.size)
+        FinalList_CheckItem = arr
+    }
+
+    override fun onDataSelectedPass(Sel: ArrayList<ContactHolder>) {
+        Selected = Sel
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,17 +45,10 @@ class BaseContactActivity : AppCompatActivity() {
         val tabLayout: TabLayout = findViewById(R.id.contacts_tabs)
         tabLayout.setupWithViewPager(viewPager)
 
-        selected = ArrayList<ContactHolder>()
+        Phones = ArrayList()
+        Selected = ArrayList()
     }
 
-
-    private val smsContactAdapter by lazy {
-        SendBulkSmsContactAdapter(context = this)
-    }
-
-    fun OnDataSelectedPass(Sel: ArrayList<ContactHolder>) {
-        selected = Sel
-    }
 
     private fun setupViewPager(viewPager: ViewPager) {
         val adapter = ViewPagerAdapter(supportFragmentManager)
@@ -76,4 +83,3 @@ class BaseContactActivity : AppCompatActivity() {
     }
 
 }
-
