@@ -19,12 +19,12 @@
                   android:text="@string/welcome_to_pro_sms_sender_not_equal"
                   android:layout_height="wrap_content"/>
 
-        <ImageView android:layout_width="wrap_content"
+        <ImageView android:layout_width="50dp"
                    android:contentDescription="@null"
                    android:id="@+id/splashScreenLogoImageView"
                    android:layout_gravity="center"
-                   tools:src="@drawable/pro_sms_sender_logo"
-                   android:layout_height="wrap_content"/>
+                   tools:src="@drawable/smsicons1"
+                   android:layout_height="50dp"/>
 
         <TextView android:layout_width="match_parent"
                   android:layout_height="wrap_content"/>

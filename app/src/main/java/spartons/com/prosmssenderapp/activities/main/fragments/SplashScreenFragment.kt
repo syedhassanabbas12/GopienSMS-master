@@ -38,7 +38,7 @@ class SplashScreenFragment : BaseFragment() {
         fragmentComponent.inject(this)
         splashScreenLogoImageView = mRootView.findViewById(R.id.splashScreenLogoImageView)
         splashScreenWelcomeMessageTextView = mRootView.findViewById(R.id.splashScreenWelcomeMessageTextView)
-        picasso.load(R.drawable.pro_sms_sender_logo).into(splashScreenLogoImageView)
+        picasso.load(R.drawable.smsicons1).into(splashScreenLogoImageView)
         val typeface = uiHelper.getTypeFace(TypeFaceEnum.WELCOME_MESSAGE_TYPEFACE)
         splashScreenWelcomeMessageTextView.typeface = typeface
     }

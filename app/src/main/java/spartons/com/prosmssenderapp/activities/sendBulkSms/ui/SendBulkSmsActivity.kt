@@ -1,6 +1,7 @@
 package spartons.com.prosmssenderapp.activities.sendBulkSms.ui
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
@@ -14,6 +15,7 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_send_bulk_sms.*
 import spartons.com.prosmssenderapp.R
 import spartons.com.prosmssenderapp.activities.BaseActivity
+import spartons.com.prosmssenderapp.activities.contactss.BaseContactActivity
 import spartons.com.prosmssenderapp.activities.sendBulkSms.adapter.SendBulkSmsContactAdapter
 import spartons.com.prosmssenderapp.activities.sendBulkSms.viewModel.SendBulkSmsViewModel
 import spartons.com.prosmssenderapp.helper.UiHelper
@@ -79,8 +81,8 @@ class SendBulkSmsActivity : BaseActivity() {
          */
 
         sendBulkSmsChooseContactButton.setOnClickListener {
-            if (isHasPermission(Manifest.permission.READ_CONTACTS))
-                showFileSelectorDialog()
+            if (isHasPermission(Manifest.permission.READ_CONTACTS) && isHasPermission(Manifest.permission.READ_EXTERNAL_STORAGE))
+                gotoContactsActivity()
             else
                 askPermission(
                     arrayOf(Manifest.permission.READ_CONTACTS),
@@ -152,15 +154,10 @@ class SendBulkSmsActivity : BaseActivity() {
         }
     }
 
-
-
-
-
-
-
-
-
-
+    private fun gotoContactsActivity() {
+        val intent = Intent(this, BaseContactActivity::class.java)
+        startActivity(intent)
+    }
 
 
     private fun sendBulkSms() {
@@ -216,12 +213,16 @@ class SendBulkSmsActivity : BaseActivity() {
                 }
         } else if (requestCode == REQUEST_READ_CONTACTS) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                showFileSelectorDialog()
+                gotoContactsActivity()
             else
                 showBottomSheetDialog(R.string.storage_permission_denied_content) {
                     askPermission(
                         arrayOf(Manifest.permission.READ_CONTACTS),
                         REQUEST_READ_CONTACTS
+                    )
+                    askPermission(
+                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
+                        READ_EXTERNAL_STORAGE_PERMISSION_REQUEST_CODE
                     )
                 }
         }

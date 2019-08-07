@@ -80,4 +80,7 @@
     <string name="all_contact_numbers_in_file_is_not_valid">All contact numbers in file is not valid. Please select
         different file.
     </string>
+    <string name="choose_contacts_text">Choose Contacts</string>
+    <string name="tab_text_1">Contacts</string>
+    <string name="tab_text_2">Groups</string>
 </resources>
