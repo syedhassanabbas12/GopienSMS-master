@@ -8,7 +8,9 @@ import android.provider.ContactsContract
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_contacts.*
 import spartons.com.prosmssenderapp.R
 import spartons.com.prosmssenderapp.activities.sendBulkSms.ui.SendBulkSmsActivity
 import spartons.com.prosmssenderapp.fragments.BaseFragment
@@ -23,7 +25,10 @@ class OneFragment : BaseFragment() {
     private lateinit var contact: ListView
     private lateinit var myAdapter: ContactAdapter
     private lateinit var arr: BooleanArray
-    private lateinit var btn: ImageButton
+    private lateinit var allselectbtn: MaterialButton
+    private lateinit var clearbtn: MaterialButton
+//    private lateinit var btn: ImageButton
+//    private lateinit var btnSelectAll: ImageButton
     private lateinit var mySearchView: SearchView
 
     interface OnDataPass {
@@ -78,9 +83,20 @@ class OneFragment : BaseFragment() {
         mySearchView = mRootView.findViewById(R.id.SearchViewmy)
         textViewTotalSel = mRootView.findViewById(R.id.TextViewTotal)
         contact = mRootView.findViewById(R.id.myListView)
-        btn = mRootView.findViewById(R.id.ImageButtonCancel)
+        allselectbtn = mRootView.findViewById(R.id.select_all_btn)
+        clearbtn = mRootView.findViewById(R.id.clear_btn)
 
-        btn.setOnClickListener {
+        allselectbtn.setOnClickListener {
+            for (i in Phones.indices) {
+                Phones[i].setCheckbox(true)
+                arr[i] = true
+                SelectedList.add(ContactHolder(Phones[i].getId(), Phones[i].getName().toString(), Phones[i].getNumber().toString()))
+            }
+            myAdapter.notifyDataSetChanged()
+            textViewTotalSel.text = "" + Phones.size
+        }
+
+        clearbtn.setOnClickListener {
             for (i in Phones.indices) {
                 Phones[i].setCheckbox(false)
                 arr[i] = false
