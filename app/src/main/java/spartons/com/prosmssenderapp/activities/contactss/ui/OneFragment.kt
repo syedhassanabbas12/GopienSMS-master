@@ -66,7 +66,7 @@ class OneFragment : BaseFragment() {
                 }
 //                Toast.makeText(activity, "Checking V $v", Toast.LENGTH_SHORT).show()
 //                i.putStringArrayListExtra("javidan", v)
-                i.flags = Intent.FLAG_ACTIVITY_NEW_TASK;
+//                i.flags = Intent.FLAG_ACTIVITY_NEW_TASK;
                 i.putExtra("contacts", v)
                 startActivity(i)
                 activity?.finish()

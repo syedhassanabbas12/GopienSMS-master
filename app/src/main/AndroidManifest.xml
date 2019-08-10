@@ -39,6 +39,7 @@
                   android:windowSoftInputMode="stateHidden"/>
 
         <activity android:name=".activities.contactss.BaseContactActivity"/>
+        <activity android:name=".activities.contactss.CreateGroupActivity"/>
 
     </application>
 

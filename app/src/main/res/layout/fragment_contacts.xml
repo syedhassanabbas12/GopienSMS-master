@@ -5,11 +5,32 @@
               xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical">
 
 
-
-    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/buttonss">
-        <com.google.android.material.button.MaterialButton
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/avien" android:layout_centerHorizontal="true" android:gravity="center">
+        <TextView
                 android:layout_width="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                android:id="@+id/TextViewTotal"/>
+
+
+        <SearchView
+                android:id="@+id/SearchViewmy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxWidth="240dp"
+                android:queryHint="Search..."
+                android:background="@color/colorPrimary"
+                android:queryBackground="@color/colorAccent"
+                android:visibility="visible">
+        </SearchView>
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/buttonss" android:layout_below="@+id/avien">
+        <com.google.android.material.button.MaterialButton
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 app:backgroundTint="@color/colorLightBlue"
@@ -19,32 +40,11 @@
                 android:textAllCaps="false"
                 android:layout_height="wrap_content"/>
 
-        <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0"
-                android:textSize="20sp"
-                android:layout_marginTop="20dp"
-                android:layout_centerHorizontal="true"
-                android:textColor="@android:color/black"
-                android:id="@+id/TextViewTotal"/>
 
-
-        <SearchView
-                android:id="@+id/SearchViewmy"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_toLeftOf="@+id/ImageButtonCancel"
-                android:maxWidth="240dp"
-                android:queryBackground="@color/colorAccent"
-                android:queryHint="Search..."
-                android:visibility="visible">
-        </SearchView>
 
         <com.google.android.material.button.MaterialButton
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
-                android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 app:backgroundTint="@color/colorLightBlue"
@@ -60,13 +60,13 @@
     <ListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
             android:id="@+id/myListView"
             android:layout_below="@+id/buttonss"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="15dp">
+            android:layout_marginStart="15dp"
+            android:layout_marginLeft="15dp">
     </ListView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

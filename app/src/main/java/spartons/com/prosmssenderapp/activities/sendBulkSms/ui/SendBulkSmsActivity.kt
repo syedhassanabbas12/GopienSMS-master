@@ -195,6 +195,7 @@ class SendBulkSmsActivity : BaseActivity(), OneFragment.OnDataPass {
     private fun gotoContactsActivity() {
         val intent = Intent(this, BaseContactActivity::class.java)
         startActivity(intent)
+        finish()
     }
 
 

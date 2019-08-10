@@ -68,7 +68,7 @@
         -Get paid to watch video Ads, etc.\n\n
 
         <strong>Contact us for Support</strong>\n
-        Email: support@gopien.com\n
+        Email: gopien.com@gmail.com\n
         Website: www.gopien.com\n
         <!--Contact Me\n\n <strong>email: </strong>ahsansaeed067@gmail.com\n <strong>Website: </strong>ahsensaeed.com/contact-me-->
     </string>
@@ -83,4 +83,7 @@
     <string name="choose_contacts_text">Choose Contacts</string>
     <string name="tab_text_1">Contacts</string>
     <string name="tab_text_2">Groups</string>
+    <string name="group_name">Group Name</string>
+    <string name="create_group">Create Group</string>
+
 </resources>

@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                xmlns:app="http://schemas.android.com/apk/res-auto" android:orientation="vertical">
+
+
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/buttons2">
+        <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                app:backgroundTint="@color/colorLightBlue"
+                android:text="@string/create_group"
+                android:id="@+id/create_group_btn1"
+                android:textColor="@color/colorWhite"
+                android:textAllCaps="false"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+
+    <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/group_list_view"
+            android:layout_below="@+id/buttons2"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="15dp">
+    </ListView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginBottom="@dimen/floating_action_button_margin_bottom"
+            app:backgroundTint="@color/colorLightBlue"
+            android:layout_marginEnd="15dp"
+            tools:style="@style/UnelevatedButton"
+            app:srcCompat="@drawable/white_send_vector_icon"
+            android:layout_height="wrap_content"
+            app:tint="@color/colorWhite"
+            android:id="@+id/groupFloatingActionButton"
+            android:layout_marginRight="15dp" android:layout_alignParentEnd="true"/>
+
+</RelativeLayout>
