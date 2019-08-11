@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import android.widget.*
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_contacts.*
 import spartons.com.prosmssenderapp.R
 import spartons.com.prosmssenderapp.activities.sendBulkSms.ui.SendBulkSmsActivity
 import spartons.com.prosmssenderapp.fragments.BaseFragment
@@ -27,8 +26,6 @@ class OneFragment : BaseFragment() {
     private lateinit var arr: BooleanArray
     private lateinit var allselectbtn: MaterialButton
     private lateinit var clearbtn: MaterialButton
-//    private lateinit var btn: ImageButton
-//    private lateinit var btnSelectAll: ImageButton
     private lateinit var mySearchView: SearchView
 
     interface OnDataPass {
@@ -64,9 +61,6 @@ class OneFragment : BaseFragment() {
                 for(i in SelectedList.indices){
                     v.add(SelectedList[i].getNumber().toString())
                 }
-//                Toast.makeText(activity, "Checking V $v", Toast.LENGTH_SHORT).show()
-//                i.putStringArrayListExtra("javidan", v)
-//                i.flags = Intent.FLAG_ACTIVITY_NEW_TASK;
                 i.putExtra("contacts", v)
                 startActivity(i)
                 activity?.finish()
@@ -140,16 +134,12 @@ class OneFragment : BaseFragment() {
                 val id = phones.getLong(phones.getColumnIndex(ContactsContract.Data._ID))
                 val name = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
                 val phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-//                Toast.makeText(activity, ""+name, Toast.LENGTH_SHORT).show()
                 Phones.add(ContactHolder(id, name, phoneNumber))
             }
             phones.close()
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
-//        Toast.makeText(activity, "Long CL1ick "+Phones[0].getName().toString(), Toast.LENGTH_SHORT).show()
-//        dataPasser?.onDataPass(Phones, arr, SelectedList)
     }
 
     fun selectContacts(view: View?) {
@@ -167,7 +157,6 @@ class OneFragment : BaseFragment() {
                         Phones[x].setCheckbox(false)
                     }
                 }
-                //Phones.get(position).setCheckbox(false);
             } else {
                 check.isChecked = true
                 arr[position] = true
@@ -177,17 +166,7 @@ class OneFragment : BaseFragment() {
                         Phones[x].setCheckbox(true)
                     }
                 }
-                //Phones.get(position).setCheckbox(true);
             }
-            /*
-                          for (int i=0;i<arr.length;i++) {
-                              if(arr[i]) {
-                                  count++;
-                                  ContactHolder contactHolder = new ContactHolder(Phones.get(i).getId(),Phones.get(i).getName(),Phones.get(i).getNumber());
-                                  contactHolder.setCheckbox(Phones.get(i).isCheckbox());
-                                  SelectedList.add(contactHolder);
-                              }
-                          }*/
             for (x in Phones.indices) {
                 if (Phones[x].isCheckbox()) {
                     count++
@@ -195,7 +174,6 @@ class OneFragment : BaseFragment() {
                 }
             }
             dataPasser?.onDataSelectedPass(SelectedList)
-            //Toast.makeText(getActivity(), ""+SelectedList.size(), Toast.LENGTH_SHORT).show();
             textViewTotalSel.text = count.toString() + ""
             dataPasser?.onDataPass(Phones, arr, SelectedList)
         }

@@ -21,12 +21,6 @@ class ContactHolder(ID: Long, name: String, number: String) : Comparable<Contact
         setCheckbox(false)
     }
 
-    /*fun ContactHolder(id: Long, name: String, number: String) {
-        this.id = id
-        this.Name = name
-        this.Number = number
-    }*/
-
     fun getId(): Long {
         return id
     }

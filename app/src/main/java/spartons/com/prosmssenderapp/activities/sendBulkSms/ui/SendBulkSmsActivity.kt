@@ -4,10 +4,8 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.View.VISIBLE
-import android.widget.Toast
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
@@ -51,7 +49,6 @@ class SendBulkSmsActivity : BaseActivity(), OneFragment.OnDataPass {
             newContacts.add(selected[i].getNumber().toString())
         }
         if(selected.size>0) {
-            Toast.makeText(applicationContext, "Buurrraaah!! " + newContacts[0], Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -144,7 +141,7 @@ class SendBulkSmsActivity : BaseActivity(), OneFragment.OnDataPass {
                 uiModel.contactList.consume()?.let { contactList ->
                     sendBulkSmsChooseFileButton.text = getResourceString(R.string.add_another_text_file)
                     smsContactAdapter.feedItems(contactList)
-//                    Toast.makeText(applicationContext, " $contactList", Toast.LENGTH_SHORT).show()
+
                     if(!veer.isNullOrEmpty()){
                         smsContactAdapter.feedItems(veer)
                     }

@@ -1,5 +1,6 @@
 package spartons.com.prosmssenderapp.activities.contactss
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
@@ -8,13 +9,16 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
+import com.google.gson.Gson
 import spartons.com.prosmssenderapp.R
-import spartons.com.prosmssenderapp.activities.contactss.ui.ContactAdapter
-import spartons.com.prosmssenderapp.activities.contactss.ui.ContactHolder
-import spartons.com.prosmssenderapp.activities.contactss.ui.OneFragment
-import spartons.com.prosmssenderapp.activities.contactss.ui.TwoFragment
 import spartons.com.prosmssenderapp.activities.sendBulkSms.adapter.SendBulkSmsContactAdapter
+import spartons.com.prosmssenderapp.activities.sendBulkSms.ui.SendBulkSmsActivity
 import java.util.*
+import spartons.com.prosmssenderapp.activities.contactss.ui.*
+import android.R.attr.data
+import android.app.Activity
+import android.content.SharedPreferences
+import com.google.gson.reflect.TypeToken
 
 
 class BaseContactActivity : AppCompatActivity(), OneFragment.OnDataPass {
@@ -23,6 +27,11 @@ class BaseContactActivity : AppCompatActivity(), OneFragment.OnDataPass {
     private lateinit var Phones: ArrayList<ContactHolder>
     private lateinit var Selected: ArrayList<ContactHolder>
     private lateinit var FinalList_CheckItem: BooleanArray
+	private var groupModelList: ArrayList<GroupModel> = ArrayList()
+	lateinit var sharedPreferences: SharedPreferences
+	private lateinit var newCreatedGroup: GroupModel
+	
+	var STATIC_INTEGER_VALUE: Int = 1
 
     override fun onDataPass(yesPhones: ArrayList<ContactHolder>, arr: BooleanArray, Sel: ArrayList<ContactHolder>) {
         Phones = yesPhones
@@ -34,10 +43,36 @@ class BaseContactActivity : AppCompatActivity(), OneFragment.OnDataPass {
     override fun onDataSelectedPass(Sel: ArrayList<ContactHolder>) {
         Selected = Sel
     }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
+	
+	fun getGroupModelList(): ArrayList<GroupModel> {
+		return groupModelList
+	}
+	
+	override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+		super.onActivityResult(requestCode, resultCode, data)
+		
+		val gson = Gson()
+		val json = data?.getStringExtra("newGroup")
+		if(json!=null){
+			var parsed: GroupModel = gson.fromJson(json, GroupModel::class.java)
+			groupModelList.add(parsed)
+		} else {
+		
+		}
+	}
+	
+	override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.contacts_base_activity)
+		
+		sharedPreferences = getSharedPreferences("group contacts", AppCompatActivity.MODE_PRIVATE)
+        val gson = Gson()
+        val json: String = sharedPreferences.getString("groupList", "")
+        if (json.isNullOrEmpty()) {
+
+        } else {
+	        groupModelList = gson.fromJson(json, object : TypeToken<ArrayList<GroupModel>>() {}.type)
+        }
 
         val viewPager: ViewPager = findViewById(R.id.contacts_viewpager)
         setupViewPager(viewPager)
@@ -57,7 +92,14 @@ class BaseContactActivity : AppCompatActivity(), OneFragment.OnDataPass {
         viewPager.adapter = adapter
         viewPager.offscreenPageLimit = 3
     }
-
+    
+    override fun onBackPressed() {
+        super.onBackPressed()
+        val i = Intent(applicationContext, SendBulkSmsActivity::class.java)
+        startActivity(i)
+        finish()
+    }
+    
     @Suppress("DEPRECATION")
     inner class ViewPagerAdapter(manager: FragmentManager) : FragmentPagerAdapter(manager) {
 

@@ -1,5 +1,6 @@
 package spartons.com.prosmssenderapp.activities.contactss
 
+import android.app.Activity
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -7,19 +8,19 @@ import android.provider.ContactsContract
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import spartons.com.prosmssenderapp.R
 import spartons.com.prosmssenderapp.activities.contactss.ui.*
 import java.util.*
 import kotlin.Comparator
+import android.content.Intent
 
 
 class CreateGroupActivity: AppCompatActivity() {
-
+    
     private lateinit var Phones: ArrayList<ContactHolder>
     private lateinit var Selected: ArrayList<ContactHolder>
     private lateinit var FinalList_CheckItem: BooleanArray
@@ -36,7 +37,7 @@ class CreateGroupActivity: AppCompatActivity() {
     private lateinit var groupModel: GroupModel
 
     lateinit var context: Context
-
+	
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contacts_group)
@@ -44,17 +45,12 @@ class CreateGroupActivity: AppCompatActivity() {
         context = applicationContext
         Phones = ArrayList()
         Selected = ArrayList()
-
-//        addContactsforGroup()
-
-//        Toast.makeText(applicationContext, "in OnCreate: ", Toast.LENGTH_SHORT).show()
-shah()
+        
+        shah()
+        
         arr = BooleanArray(Phones.size)
         for (i in arr.indices) arr[i] = false
-//
-//
-//        context = applicationContext
-//        var cc: Context? = context
+        
         mySearchView = findViewById(R.id.SearchViewmy1)
         textViewTotalSel = findViewById(R.id.TextViewTotal1)
         contact = findViewById(R.id.myListView1)
@@ -80,17 +76,13 @@ shah()
                 for(i in Selected.indices){
                     v.add(Selected[i].getNumber().toString())
                 }
+	            
+                groupModel = GroupModel(1,n.toString(), v)
 
-                groupModel = GroupModel(n.toString(), v)
-
-                sharedPreferences = getSharedPreferences("group contacts", MODE_PRIVATE)
-                var prefsEditor = sharedPreferences.edit()
-                val gson = Gson()
-                val json = gson.toJson(groupModel)
-                prefsEditor.putString("groupOne", json)
-                prefsEditor.apply()
-//                var myGroupModel = GroupModel(n.toString(),v)
-//                TwoFragment.newInstance(myGroupModel)
+                val parsedValue = Gson().toJson(groupModel, object: TypeToken<GroupModel>(){}.type)
+                val resultIntent = Intent()
+                resultIntent.putExtra("newGroup", parsedValue)
+                setResult(Activity.RESULT_OK, resultIntent)
                 finish()
             }
         }
@@ -117,7 +109,6 @@ shah()
 
 
         myAdapter = ContactAdapter(Phones, context)
-////        Toast.makeText(context, "asd: "+Phones[0].getName(), Toast.LENGTH_SHORT).show()
         val myComparator =
             Comparator<ContactHolder> { obj1, obj2 -> obj1.getName().toString().compareTo(obj2.getName().toString()) }
         Collections.sort(Phones, myComparator)
@@ -139,7 +130,6 @@ shah()
     }
 
     fun shah(){
-        Toast.makeText(context, "in Shah! START", Toast.LENGTH_SHORT).show()
         try {
             val phones = context!!.contentResolver
                 .query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null)
@@ -147,26 +137,6 @@ shah()
                 val id = phones.getLong(phones.getColumnIndex(ContactsContract.Data._ID))
                 val name = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
                 val phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-//                Toast.makeText(context, "asd: $name", Toast.LENGTH_SHORT).show()
-                Phones.add(ContactHolder(id, name, phoneNumber))
-            }
-            phones.close()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        Toast.makeText(context, "in Shah! END", Toast.LENGTH_SHORT).show()
-    }
-
-    private fun addContactsforGroup() {
-//        Phones = ArrayList()
-        try {
-            val phones = context!!.contentResolver
-                .query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null)
-            while (phones.moveToNext()) {
-                val id = phones.getLong(phones.getColumnIndex(ContactsContract.Data._ID))
-                val name = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
-                val phoneNumber = phones.getString(phones.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-                Toast.makeText(context, "asd: $name", Toast.LENGTH_SHORT).show()
                 Phones.add(ContactHolder(id, name, phoneNumber))
             }
             phones.close()
@@ -174,7 +144,7 @@ shah()
             e.printStackTrace()
         }
     }
-
+	
 
     fun selectContacts() {
         contact.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
@@ -210,6 +180,12 @@ shah()
             textViewTotalSel.text = count.toString() + ""
         }
     }
+	
+	
+	override fun onBackPressed() {
+		super.onBackPressed()
+		finish()
+	}
 }
 
 

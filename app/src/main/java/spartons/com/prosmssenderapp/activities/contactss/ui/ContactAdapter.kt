@@ -2,14 +2,11 @@ package spartons.com.prosmssenderapp.activities.contactss.ui
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import kotlinx.android.synthetic.main.phone.view.*
 import spartons.com.prosmssenderapp.R
-import kotlin.coroutines.coroutineContext
 import java.util.ArrayList as ArrayList1
 
 
