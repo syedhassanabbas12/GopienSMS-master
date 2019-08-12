@@ -5,17 +5,17 @@ import android.os.Parcelable
 import androidx.annotation.NonNull
 import java.io.Serializable
 
-class GroupModel(ID: Long, name: String, numbers: ArrayList<String>) : Comparable<GroupModel>, Serializable, Parcelable {
+class GroupModel(ID: Long, name: String, numbers: ArrayList<ContactHolder>) : Comparable<GroupModel>, Serializable, Parcelable {
 
     private var id: Long = ID
     private var Name: String = name
-    private var Numbers: ArrayList<String> = numbers
+    private var Numbers: ArrayList<ContactHolder> = numbers
     private var CheckValue: Boolean = false
     
     constructor(parcel: Parcel) : this(
         parcel.readLong(),
         parcel.readString(),
-        parcel.readArrayList(null) as ArrayList<String>
+        parcel.readArrayList(null) as ArrayList<ContactHolder>
     )
     
     init {
@@ -43,11 +43,19 @@ class GroupModel(ID: Long, name: String, numbers: ArrayList<String>) : Comparabl
         Name = name
     }
 
-    fun getNumber(): ArrayList<String>? {
+    fun getNumber(): ArrayList<ContactHolder>? {
         return Numbers
     }
+    
+    fun getNumbersArrayList(): ArrayList<String>? {
+        var n: ArrayList<String> = ArrayList(Numbers.size)
+        for(i in Numbers.indices){
+            n.add(Numbers[i].getNumber().toString())
+        }
+        return n
+    }
 
-    fun setNumber(numbers: ArrayList<String>) {
+    fun setNumber(numbers: ArrayList<ContactHolder>) {
         Numbers = numbers
     }
     
@@ -60,7 +68,7 @@ class GroupModel(ID: Long, name: String, numbers: ArrayList<String>) : Comparabl
     }
     
     override fun compareTo(@NonNull o: GroupModel): Int {
-        return Name!!.compareTo(o.Name!!)
+        return Name.compareTo(o.Name)
     }
     
     override fun writeToParcel(parcel: Parcel, flags: Int) {

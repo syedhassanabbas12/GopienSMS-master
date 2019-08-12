@@ -11,27 +11,25 @@ import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import com.google.gson.Gson
 import spartons.com.prosmssenderapp.R
-import spartons.com.prosmssenderapp.activities.sendBulkSms.adapter.SendBulkSmsContactAdapter
 import spartons.com.prosmssenderapp.activities.sendBulkSms.ui.SendBulkSmsActivity
 import java.util.*
 import spartons.com.prosmssenderapp.activities.contactss.ui.*
-import android.R.attr.data
 import android.app.Activity
 import android.content.SharedPreferences
 import com.google.gson.reflect.TypeToken
 
 
 class BaseContactActivity : AppCompatActivity(), OneFragment.OnDataPass {
-
+	val PICK_CONTACT_REQUEST = 1
+	val EDIT_CONTACT_REQUEST = 2
 //    private var selected: ArrayList<ContactHolder>? = null
     private lateinit var Phones: ArrayList<ContactHolder>
     private lateinit var Selected: ArrayList<ContactHolder>
     private lateinit var FinalList_CheckItem: BooleanArray
-	private var groupModelList: ArrayList<GroupModel> = ArrayList()
+	private lateinit var groupModelList: ArrayList<GroupModel>
 	lateinit var sharedPreferences: SharedPreferences
 	private lateinit var newCreatedGroup: GroupModel
 	
-	var STATIC_INTEGER_VALUE: Int = 1
 
     override fun onDataPass(yesPhones: ArrayList<ContactHolder>, arr: BooleanArray, Sel: ArrayList<ContactHolder>) {
         Phones = yesPhones
@@ -55,7 +53,21 @@ class BaseContactActivity : AppCompatActivity(), OneFragment.OnDataPass {
 		val json = data?.getStringExtra("newGroup")
 		if(json!=null){
 			var parsed: GroupModel = gson.fromJson(json, GroupModel::class.java)
-			groupModelList.add(parsed)
+			var isFound = false
+			for(i in groupModelList.indices){
+				if(groupModelList[i].getId() == parsed.getId()){
+					isFound = true
+				}
+			}
+			if(isFound){
+				for(i in groupModelList.indices){
+					if(groupModelList[i].getId() == parsed.getId()){
+						groupModelList[i] = parsed
+					}
+				}
+			} else {
+				groupModelList.add(parsed)
+			}
 		} else {
 		
 		}
@@ -65,9 +77,9 @@ class BaseContactActivity : AppCompatActivity(), OneFragment.OnDataPass {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.contacts_base_activity)
 		
-		sharedPreferences = getSharedPreferences("group contacts", AppCompatActivity.MODE_PRIVATE)
+		sharedPreferences = getSharedPreferences("group contacts", MODE_PRIVATE)
         val gson = Gson()
-        val json: String = sharedPreferences.getString("groupList", "")
+        val json: String? = sharedPreferences.getString("groupList", "")
         if (json.isNullOrEmpty()) {
 
         } else {

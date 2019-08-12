@@ -33,9 +33,8 @@ class CreateGroupActivity: AppCompatActivity() {
     private lateinit var createGroupButton: MaterialButton
     private lateinit var mySearchView: SearchView
     private lateinit var groupNameEditText: EditText
-    private lateinit var sharedPreferences: SharedPreferences
     private lateinit var groupModel: GroupModel
-
+    private var idForGroup: Long = 100000000
     lateinit var context: Context
 	
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,6 +57,23 @@ class CreateGroupActivity: AppCompatActivity() {
         clearbtn = findViewById(R.id.clear_btn1)
         createGroupButton = findViewById(R.id.createGroupButton)
         groupNameEditText = findViewById(R.id.groupNameEditText)
+        
+        val json = intent.getStringExtra("editGroup")
+        val gson = Gson()
+        if(json != null) {
+            val editGroupModel: GroupModel = gson.fromJson(json, object : TypeToken<GroupModel>() {}.type)
+            idForGroup = editGroupModel.getId()
+            groupNameEditText.setText(editGroupModel.getName().toString())
+            createGroupButton.text = "Save Changes"
+            val editGroupPhonesList = editGroupModel.getNumber()
+            for(i in editGroupPhonesList!!.indices){
+                for(j in Phones.indices) {
+                    if (Phones[j].getId() == editGroupPhonesList[i].getId()) {
+                        Phones[j].setCheckbox(true)
+                    }
+                }
+            }
+        }
 
         createGroupButton.setOnClickListener{
             var n = groupNameEditText.text
@@ -72,12 +88,14 @@ class CreateGroupActivity: AppCompatActivity() {
                     .show()
             }
             if(n.isNotEmpty() && !Selected.isNullOrEmpty()){
-                val v:ArrayList<String> = ArrayList(Selected.size)
+                
+                
+                val v:ArrayList<ContactHolder> = ArrayList(Selected.size)
                 for(i in Selected.indices){
-                    v.add(Selected[i].getNumber().toString())
+                    v.add(Selected[i])
                 }
 	            
-                groupModel = GroupModel(1,n.toString(), v)
+                groupModel = GroupModel(idForGroup,n.toString(), v)
 
                 val parsedValue = Gson().toJson(groupModel, object: TypeToken<GroupModel>(){}.type)
                 val resultIntent = Intent()
@@ -129,7 +147,7 @@ class CreateGroupActivity: AppCompatActivity() {
         })
     }
 
-    fun shah(){
+    private fun shah(){
         try {
             val phones = context!!.contentResolver
                 .query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI, null, null, null, null)

@@ -28,7 +28,7 @@ class TwoFragment : BaseFragment() {
 	private lateinit var groupListView: ListView
 	private lateinit var myGroupAdapter: ContactGroupAdapter
 	private var selectedGroup: GroupModel? = null
-	lateinit var sharedPreferences: SharedPreferences
+	private lateinit var sharedPreferences: SharedPreferences
 	private lateinit var groupModelList: ArrayList<GroupModel>
 	
 	
@@ -39,7 +39,7 @@ class TwoFragment : BaseFragment() {
 			groupModelList[i].setId(i.toLong())
 		}
 		sharedPreferences = activity!!.getSharedPreferences("group contacts", AppCompatActivity.MODE_PRIVATE)
-		var prefsEditor = sharedPreferences.edit()
+		val prefsEditor = sharedPreferences.edit()
 		val gson = Gson()
 		val jsonList = gson.toJson(groupModelList)
 		prefsEditor.putString("groupList", jsonList)
@@ -57,7 +57,7 @@ class TwoFragment : BaseFragment() {
 
 		}
 		
-		var cc: Context? = context
+		val cc: Context? = context
 		
 		createGroupButton = mRootView.findViewById(R.id.create_group_btn1)
 		groupListView = mRootView.findViewById(R.id.group_list_view)
@@ -71,11 +71,8 @@ class TwoFragment : BaseFragment() {
 					.show()
 			} else {
                 val i = Intent(context, SendBulkSmsActivity::class.java)
-                val v:ArrayList<String> = selectedGroup!!.getNumber()!!
-				if(!v.isNullOrEmpty()) {
-				
-				}
-                i.putExtra("contacts", v)
+
+                i.putExtra("contacts", selectedGroup?.getNumbersArrayList())
                 startActivity(i)
                 activity?.finish()
 			}
@@ -83,7 +80,7 @@ class TwoFragment : BaseFragment() {
 		
 		createGroupButton.setOnClickListener {
 			val i = Intent(context, CreateGroupActivity::class.java)
-			startActivityForResult(i, 1)
+			startActivityForResult(i, BaseContactActivity().PICK_CONTACT_REQUEST)
 		}
 		
 		
@@ -97,12 +94,23 @@ class TwoFragment : BaseFragment() {
 		groupListView.choiceMode = ListView.CHOICE_MODE_SINGLE
 		myGroupAdapter.notifyDataSetChanged()
 		selectContactsGroup()
+		
+		groupListView.onItemLongClickListener = AdapterView.OnItemLongClickListener { _, _, i, _ ->
+
+			val gson = Gson()
+			val json = gson.toJson(groupModelList[i])
+			
+			val intentResult = Intent(context, CreateGroupActivity::class.java)
+			intentResult.putExtra("editGroup", json)
+			startActivityForResult(intentResult, 2)
+			
+			true
+		}
 	}
 	
 	
-	fun selectContactsGroup() {
-		groupListView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-		
+	private fun selectContactsGroup() {
+		groupListView.onItemClickListener = AdapterView.OnItemClickListener { _, view, position, _ ->
 
 			if(groupModelList[position].isChecked()){
 				groupModelList[position].setCheckValue(false)
