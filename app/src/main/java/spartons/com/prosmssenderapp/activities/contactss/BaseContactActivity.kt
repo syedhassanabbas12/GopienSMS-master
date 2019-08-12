@@ -17,6 +17,7 @@ import spartons.com.prosmssenderapp.activities.contactss.ui.*
 import android.app.Activity
 import android.content.SharedPreferences
 import com.google.gson.reflect.TypeToken
+import kotlin.collections.ArrayList
 
 
 class BaseContactActivity : AppCompatActivity(), OneFragment.OnDataPass {
@@ -26,7 +27,7 @@ class BaseContactActivity : AppCompatActivity(), OneFragment.OnDataPass {
     private lateinit var Phones: ArrayList<ContactHolder>
     private lateinit var Selected: ArrayList<ContactHolder>
     private lateinit var FinalList_CheckItem: BooleanArray
-	private lateinit var groupModelList: ArrayList<GroupModel>
+	private var groupModelList: ArrayList<GroupModel> = ArrayList()
 	lateinit var sharedPreferences: SharedPreferences
 	private lateinit var newCreatedGroup: GroupModel
 	
