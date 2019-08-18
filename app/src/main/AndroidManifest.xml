@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:dist="http://schemas.android.com/apk/distribution"
           xmlns:tools="http://schemas.android.com/tools"
-          package="spartons.com.prosmssenderapp"
+          package="syed.com.gopiensms"
           android:targetSandboxVersion="1"
           tools:ignore="UnusedAttribute">
 
@@ -16,7 +16,7 @@
 
     <application
             android:allowBackup="true"
-            android:name=".backend.MyCustomApplication"
+            android:name="syed.com.gopiensms.backend.MyCustomApplication"
             android:icon="@mipmap/ic_launcher_new"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_new_round"
@@ -25,7 +25,7 @@
             tools:ignore="AllowBackup,GoogleAppIndexingWarning,UnusedAttribute"
             android:theme="@style/AppTheme">
 
-        <activity android:name="spartons.com.prosmssenderapp.activities.main.ui.MainActivity"
+        <activity android:name="syed.com.gopiensms.activities.main.ui.MainActivity"
                   android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -34,12 +34,12 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".activities.sendBulkSms.ui.SendBulkSmsActivity"
+        <activity android:name="syed.com.gopiensms.activities.sendBulkSms.ui.SendBulkSmsActivity"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"/>
 
-        <activity android:name=".activities.contactss.BaseContactActivity"/>
-        <activity android:name=".activities.contactss.CreateGroupActivity"/>
+        <activity android:name="syed.com.gopiensms.activities.contactss.BaseContactActivity"/>
+        <activity android:name="syed.com.gopiensms.activities.contactss.CreateGroupActivity"/>
 
     </application>
 
