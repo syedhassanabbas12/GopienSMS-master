@@ -1,34 +1,34 @@
 {
   "project_info": {
-    "project_number": "553381425522",
-    "firebase_url": "https://gopiensms.firebaseio.com",
-    "project_id": "gopiensms",
-    "storage_bucket": "gopiensms.appspot.com"
+    "project_number": "1056128397787",
+    "firebase_url": "https://gopiensms-6f53f.firebaseio.com",
+    "project_id": "gopiensms-6f53f",
+    "storage_bucket": "gopiensms-6f53f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:553381425522:android:7211afb105d1809d",
+        "mobilesdk_app_id": "1:1056128397787:android:7211afb105d1809d",
         "android_client_info": {
           "package_name": "syed.com.gopiensms"
         }
       },
       "oauth_client": [
         {
-          "client_id": "553381425522-3r7u22dsj03v3vej5mibfigglc8m2ggu.apps.googleusercontent.com",
+          "client_id": "1056128397787-t4keocfnefi6hpmbce79nh2v6jroapn3.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBMWNSl_KlmAcGmUp1wXOd6WbPT8bVXevg"
+          "current_key": "AIzaSyC7K6FMseR1qtgnun_B6Jv46ibQ6Bhpzbk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "553381425522-3r7u22dsj03v3vej5mibfigglc8m2ggu.apps.googleusercontent.com",
+              "client_id": "1056128397787-t4keocfnefi6hpmbce79nh2v6jroapn3.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -1,0 +1,36 @@
+[debug] [2019-08-22T19:03:58.906Z] ----------------------------------------------------------------------
+[debug] [2019-08-22T19:03:58.909Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\hassa\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js deploy
+[debug] [2019-08-22T19:03:58.909Z] CLI Version:   7.2.4
+[debug] [2019-08-22T19:03:58.909Z] Platform:      win32
+[debug] [2019-08-22T19:03:58.909Z] Node Version:  v10.16.3
+[debug] [2019-08-22T19:03:58.910Z] Time:          Fri Aug 23 2019 00:03:58 GMT+0500 (Pakistan Standard Time)
+[debug] [2019-08-22T19:03:58.910Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-08-22T19:03:58.921Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-08-22T19:03:58.922Z] > authorizing via signed-in user
+[debug] [2019-08-22T19:03:58.922Z] [iam] checking project gopiensms for permissions ["firebase.projects.get","firebasedatabase.instances.update","firebasehosting.sites.update"]
+[debug] [2019-08-22T19:03:58.924Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/gopiensms:testIamPermissions  
+
+[debug] [2019-08-22T19:04:02.122Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-22T19:04:02.127Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/gopiensms  
+ 
+[debug] [2019-08-22T19:04:05.597Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'gopiensms'...
+[info] 
+[info] i  deploying database, hosting
+[info] i  database: checking rules syntax...
+[debug] [2019-08-22T19:04:05.611Z] >>> HTTP REQUEST PUT https://gopiensms.firebaseio.com/.settings/rules.json?dryRun=true  
+ {
+  "rules": {
+    ".read": "auth != null",
+    ".write": "auth != null"
+  }
+}
+[debug] [2019-08-22T19:04:10.920Z] <<< HTTP RESPONSE 404
+[debug] [2019-08-22T19:04:10.920Z] <<< HTTP RESPONSE BODY {
+  "error" : "Firebase error. Please ensure that you spelled the name of your Firebase correctly"
+}
+
+[error] 
+[error] Error: Unexpected error while deploying database rules.

@@ -33,6 +33,8 @@ android {
     }
 }
 
+apply plugin: 'com.google.gms.google-services'
+
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     // Kotlin library dependency
@@ -95,4 +97,7 @@ dependencies {
 
     androidTestImplementation 'androidx.test:runner:1.3.0-alpha01'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0-alpha01'
+
+    implementation 'com.google.firebase:firebase-auth:19.0.0'
 }
+
