@@ -1,0 +1,137 @@
+[debug] [2019-08-23T19:01:58.888Z] ----------------------------------------------------------------------
+[debug] [2019-08-23T19:01:58.890Z] Command:       /usr/bin/node /usr/bin/firebase serve
+[debug] [2019-08-23T19:01:58.890Z] CLI Version:   7.2.4
+[debug] [2019-08-23T19:01:58.890Z] Platform:      linux
+[debug] [2019-08-23T19:01:58.890Z] Node Version:  v11.15.0
+[debug] [2019-08-23T19:01:58.890Z] Time:          Sat Aug 24 2019 00:01:58 GMT+0500 (Pakistan Standard Time)
+[debug] [2019-08-23T19:01:58.890Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-08-23T19:01:58.895Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-08-23T19:01:58.895Z] > authorizing via signed-in user
+[debug] [2019-08-23T19:01:58.895Z] [iam] checking project gopiensms-6f53f for permissions ["firebase.projects.get"]
+[debug] [2019-08-23T19:01:58.896Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/gopiensms-6f53f:testIamPermissions  
+
+[debug] [2019-08-23T19:02:01.576Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-23T19:02:01.577Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/gopiensms-6f53f  
+ 
+[debug] [2019-08-23T19:02:03.202Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/home/syed/fiverr_workspace/GopienSMS-master'...
+[info] 
+[debug] [2019-08-23T19:02:03.209Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/gopiensms-6f53f/webApps/-/config  
+ 
+[debug] [2019-08-23T19:02:04.227Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] ✔  hosting: Local server: http://localhost:5000
+[debug] [2019-08-23T19:14:06.040Z] Error: read ECONNRESET
+    at TLSWrap.onStreamRead (internal/stream_base_commons.js:171:27)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2019-08-23T19:14:06.042Z] Error: read ECONNRESET
+    at TLSWrap.onStreamRead (internal/stream_base_commons.js:171:27)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2019-08-23T19:14:06.058Z] Error: read ECONNRESET
+    at TLSWrap.onStreamRead (internal/stream_base_commons.js:171:27)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2019-08-23T19:14:15.241Z] ----------------------------------------------------------------------
+[debug] [2019-08-23T19:14:15.243Z] Command:       /usr/bin/node /usr/bin/firebase serve
+[debug] [2019-08-23T19:14:15.243Z] CLI Version:   7.2.4
+[debug] [2019-08-23T19:14:15.243Z] Platform:      linux
+[debug] [2019-08-23T19:14:15.243Z] Node Version:  v11.15.0
+[debug] [2019-08-23T19:14:15.244Z] Time:          Sat Aug 24 2019 00:14:15 GMT+0500 (Pakistan Standard Time)
+[debug] [2019-08-23T19:14:15.244Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-08-23T19:14:15.248Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-08-23T19:14:15.248Z] > authorizing via signed-in user
+[debug] [2019-08-23T19:14:15.248Z] [iam] checking project gopiensms-6f53f for permissions ["firebase.projects.get"]
+[debug] [2019-08-23T19:14:15.250Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/gopiensms-6f53f:testIamPermissions  
+
+[debug] [2019-08-23T19:14:21.420Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-23T19:14:21.426Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/gopiensms-6f53f  
+ 
+[debug] [2019-08-23T19:14:25.227Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/home/syed/fiverr_workspace/GopienSMS-master'...
+[info] 
+[debug] [2019-08-23T19:14:25.230Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/gopiensms-6f53f/webApps/-/config  
+ 
+[debug] [2019-08-23T19:14:26.254Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] ✔  hosting: Local server: http://localhost:5000
+[debug] [2019-08-23T19:18:56.166Z] Error: socket hang up
+    at createHangUpError (_http_client.js:330:17)
+    at TLSSocket.socketOnEnd (_http_client.js:431:23)
+    at TLSSocket.emit (events.js:198:15)
+    at TLSSocket.EventEmitter.emit (domain.js:481:20)
+    at endReadableNT (_stream_readable.js:1139:12)
+    at processTicksAndRejections (internal/process/task_queues.js:81:17)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2019-08-23T19:20:58.617Z] ----------------------------------------------------------------------
+[debug] [2019-08-23T19:20:58.619Z] Command:       /usr/bin/node /usr/bin/firebase serve
+[debug] [2019-08-23T19:20:58.619Z] CLI Version:   7.2.4
+[debug] [2019-08-23T19:20:58.619Z] Platform:      linux
+[debug] [2019-08-23T19:20:58.619Z] Node Version:  v11.15.0
+[debug] [2019-08-23T19:20:58.619Z] Time:          Sat Aug 24 2019 00:20:58 GMT+0500 (Pakistan Standard Time)
+[debug] [2019-08-23T19:20:58.619Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-08-23T19:20:58.624Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-08-23T19:20:58.624Z] > authorizing via signed-in user
+[debug] [2019-08-23T19:20:58.624Z] [iam] checking project gopiensms-6f53f for permissions ["firebase.projects.get"]
+[debug] [2019-08-23T19:20:58.626Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/gopiensms-6f53f:testIamPermissions  
+
+[debug] [2019-08-23T19:21:00.662Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-23T19:21:00.668Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/gopiensms-6f53f  
+ 
+[debug] [2019-08-23T19:21:02.718Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/home/syed/fiverr_workspace/GopienSMS-master'...
+[info] 
+[debug] [2019-08-23T19:21:02.724Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/gopiensms-6f53f/webApps/-/config  
+ 
+[debug] [2019-08-23T19:21:03.624Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] ✔  hosting: Local server: http://localhost:5000
+[debug] [2019-08-23T19:26:58.894Z] Error: read ECONNRESET
+    at TLSWrap.onStreamRead (internal/stream_base_commons.js:171:27)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2019-08-23T19:26:58.898Z] Error: read ECONNRESET
+    at TLSWrap.onStreamRead (internal/stream_base_commons.js:171:27)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2019-08-23T19:26:58.900Z] Error: read ECONNRESET
+    at TLSWrap.onStreamRead (internal/stream_base_commons.js:171:27)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2019-08-23T19:26:58.903Z] Error: read ECONNRESET
+    at TLSWrap.onStreamRead (internal/stream_base_commons.js:171:27)
+[error] 
+[error] Error: An unexpected error has occurred.
+[debug] [2019-08-23T19:28:06.502Z] ----------------------------------------------------------------------
+[debug] [2019-08-23T19:28:06.504Z] Command:       /usr/bin/node /usr/bin/firebase serve
+[debug] [2019-08-23T19:28:06.504Z] CLI Version:   7.2.4
+[debug] [2019-08-23T19:28:06.504Z] Platform:      linux
+[debug] [2019-08-23T19:28:06.504Z] Node Version:  v11.15.0
+[debug] [2019-08-23T19:28:06.507Z] Time:          Sat Aug 24 2019 00:28:06 GMT+0500 (Pakistan Standard Time)
+[debug] [2019-08-23T19:28:06.507Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-08-23T19:28:06.512Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-08-23T19:28:06.512Z] > authorizing via signed-in user
+[debug] [2019-08-23T19:28:06.512Z] [iam] checking project gopiensms-6f53f for permissions ["firebase.projects.get"]
+[debug] [2019-08-23T19:28:06.513Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/gopiensms-6f53f:testIamPermissions  
+
+[debug] [2019-08-23T19:28:09.152Z] <<< HTTP RESPONSE 200
+[debug] [2019-08-23T19:28:09.153Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/gopiensms-6f53f  
+ 
+[debug] [2019-08-23T19:28:11.152Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/home/syed/fiverr_workspace/GopienSMS-master'...
+[info] 
+[debug] [2019-08-23T19:28:11.159Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/gopiensms-6f53f/webApps/-/config  
+ 
+[debug] [2019-08-23T19:28:14.219Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: public
+[info] ✔  hosting: Local server: http://localhost:5000
